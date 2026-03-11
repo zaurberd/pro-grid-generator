@@ -1,12 +1,13 @@
 # Release Please: automatic version + release notes from conventional commits.
 # Use commits: feat: ..., fix: ..., chore: ... (or BREAKING CHANGE: for major).
-# It opens a Release PR; when you merge that PR, the tag and GitHub Release are created.
+# Runs on push to trunk; opens/updates a Release PR. When you merge that Release PR, the tag and GitHub Release are created.
 
 name: Release Please
 
 on:
   push:
-    branches: [main]
+    branches: [trunk]
+  workflow_dispatch:
 
 permissions:
   contents: write

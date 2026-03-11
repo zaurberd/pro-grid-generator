@@ -1,19 +1,13 @@
-# Deploys to VPS on every push to main via Docker.
-#
-# One-time VPS setup:
-#   1. Install Docker (and Docker Compose v2 if you use compose).
-#   2. Create app dir, e.g. mkdir -p /var/www/pro-grid-generator && cd there.
-#   3. Clone this repo (for docker-compose.yml / reference; image is pulled from GHCR).
-#   4. Optional: docker compose pull && IMAGE=ghcr.io/OWNER/pro-grid-generator:latest docker compose up -d
-#
+# Deploys to VPS when a PR is merged into trunk (push to trunk).
+# Triggers: push to trunk, or manual Run workflow.
 # GitHub repo secrets: VPS_HOST, VPS_USER, VPS_SSH_KEY, GHCR_TOKEN (PAT with read:packages for pull on VPS)
-# Optional variable: VPS_APP_PATH (defaults to /var/www/pro-grid-generator)
 
 name: Deploy to VPS
 
 on:
   push:
-    branches: [main]
+    branches: [trunk]
+  workflow_dispatch:
 
 env:
   REGISTRY: ghcr.io
