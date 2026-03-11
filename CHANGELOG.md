@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/zaurberd/pro-grid-generator/compare/pro-grid-generator-v1.1.0...pro-grid-generator-v1.1.1) (2026-03-11)
+
+
+### Bug Fixes
+
+* add readme ([#6](https://github.com/zaurberd/pro-grid-generator/issues/6)) ([c9cc3e9](https://github.com/zaurberd/pro-grid-generator/commit/c9cc3e91d9bd51ed2bf7730a91008400fe312385))
+
 ## [1.1.0](https://github.com/zaurberd/pro-grid-generator/compare/pro-grid-generator-v1.0.0...pro-grid-generator-v1.1.0) (2026-03-11)
 
 
