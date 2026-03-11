@@ -1,0 +1,23 @@
+# Release Please: automatic version + release notes from conventional commits.
+# Use commits: feat: ..., fix: ..., chore: ... (or BREAKING CHANGE: for major).
+# It opens a Release PR; when you merge that PR, the tag and GitHub Release are created.
+
+name: Release Please
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: googleapis/release-please-action@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
