@@ -1,12 +1,12 @@
-# Deploys to VPS when a PR is merged into trunk (push to trunk).
-# Triggers: push to trunk, or manual Run workflow.
+# Deploys to VPS when a release is published (i.e. after you merge the Release Please PR).
+# Triggers: release published, or manual Run workflow.
 # GitHub repo secrets: VPS_HOST, VPS_USER, VPS_SSH_KEY, GHCR_TOKEN (PAT with read:packages for pull on VPS)
 
 name: Deploy to VPS
 
 on:
-  push:
-    branches: [trunk]
+  release:
+    types: [published]
   workflow_dispatch:
 
 env:
@@ -22,6 +22,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name || github.ref }}
 
       - name: Log in to GHCR
         uses: docker/login-action@v3
@@ -36,8 +38,6 @@ jobs:
           context: .
           push: true
           tags: ${{ env.IMAGE }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
 
   deploy:
     runs-on: ubuntu-latest
