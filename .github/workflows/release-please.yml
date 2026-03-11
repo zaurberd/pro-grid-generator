@@ -2,7 +2,8 @@
 # Use commits: feat: ..., fix: ..., chore: ... (or BREAKING CHANGE: for major).
 # Runs on push to trunk; opens/updates a Release PR. When you merge that Release PR, the tag and GitHub Release are created (and Deploy runs).
 #
-# If you see "GitHub Actions is not permitted to create pull requests": repo Settings → Actions → General → Workflow permissions → set to "Read and write permissions".
+# Required: add repo secret RELEASE_PLEASE_TOKEN (Personal Access Token with "repo" scope) so the workflow can create PRs.
+# Create token: GitHub → Settings → Developer settings → Personal access tokens → Generate new token (classic) → tick "repo".
 
 name: Release Please
 
@@ -22,6 +23,6 @@ jobs:
     steps:
       - uses: googleapis/release-please-action@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
