@@ -210,6 +210,19 @@ import { GridState } from '@/entities/grid'
 - Use the FSD import rules
 - Add `'use client'` directive to components using hooks or browser APIs
 
+## Deployment
+
+The app is deployed to a VPS with Docker and GitHub Actions. Deploys run when a **release is published** (after merging the Release Please PR), not on every push to trunk.
+
+Full guide (VPS setup, GitHub secrets, domain, Nginx, HTTPS): **[docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)**.
+
+Quick links:
+
+- **GitHub:** Secrets (VPS_HOST, VPS_USER, VPS_SSH_KEY, GHCR_TOKEN, RELEASE_PLEASE_TOKEN), default branch `trunk`.
+- **VPS:** Docker, deploy user with SSH key, user in `docker` group.
+- **Release:** Use conventional commits (`feat:`, `fix:`), merge to trunk, then merge the Release PR.
+- **Domain:** DNS A record → VPS IP; on VPS: Nginx proxy to `127.0.0.1:3002`, Certbot for HTTPS. See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) and [docs/nginx-pro-grid-generator.online.conf](docs/nginx-pro-grid-generator.online.conf).
+
 ## License
 
 MIT
