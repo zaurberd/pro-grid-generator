@@ -4,6 +4,7 @@ import { Github, Twitter } from 'lucide-react'
 import Link from 'next/link'
 import { cn } from '@/shared/lib/utils'
 import type { ReactNode } from 'react'
+import packageJson from '@package'
 
 interface AppFooterProps {
   className?: string
@@ -70,6 +71,8 @@ function AppFooter({ className }: AppFooterProps) {
       <div className="container mx-auto px-6 py-6">
         <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <span className="tabular-nums">v{packageJson.version}</span>
+            <span aria-hidden>·</span>
             <span>Made by</span>
             <Link
               href={SOCIAL_LINKS[2].href}
