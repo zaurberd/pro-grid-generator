@@ -1,6 +1,8 @@
 # Release Please: automatic version + release notes from conventional commits.
 # Use commits: feat: ..., fix: ..., chore: ... (or BREAKING CHANGE: for major).
-# Runs on push to trunk; opens/updates a Release PR. When you merge that Release PR, the tag and GitHub Release are created.
+# Runs on push to trunk; opens/updates a Release PR. When you merge that Release PR, the tag and GitHub Release are created (and Deploy runs).
+#
+# If you see "GitHub Actions is not permitted to create pull requests": repo Settings → Actions → General → Workflow permissions → set to "Read and write permissions".
 
 name: Release Please
 
@@ -12,6 +14,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  issues: write
 
 jobs:
   release-please:
