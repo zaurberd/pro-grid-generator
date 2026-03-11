@@ -1,0 +1,8 @@
+# Set IMAGE before use, e.g.: IMAGE=ghcr.io/owner/pro-grid-generator:latest docker compose up -d
+services:
+  app:
+    image: ${IMAGE}
+    container_name: pro-grid-generator
+    restart: unless-stopped
+    ports:
+      - "3002:3000"
