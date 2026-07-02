@@ -17,7 +17,62 @@
     "title": "Grid canvas",
     "instruction": "Click on cells to add items",
     "emptyTitle": "Empty grid",
-    "emptyMessage": "Click on cells to add items"
+    "emptyMessage": "Click on cells to add items",
+    "itemLabel": "Item {number}"
+  },
+  "presetGallery": {
+    "title": "Grid presets",
+    "subtitle": "Start from a production-style layout or open a blank canvas.",
+    "manualTitle": "Create manually",
+    "manualDescription": "Open a blank canvas and choose the editing mode there.",
+    "createGrid": "Create grid",
+    "usePreset": "Use preset"
+  },
+  "editorMode": {
+    "simple": "Simple",
+    "responsive": "Responsive"
+  },
+  "presets": {
+    "dashboard-overview": {
+      "name": "Dashboard Overview",
+      "description": "Hero metric row with two lower content panels."
+    },
+    "analytics-board": {
+      "name": "Analytics Board",
+      "description": "Large chart with compact insight cards."
+    },
+    "portfolio-masonry": {
+      "name": "Portfolio Masonry",
+      "description": "Asymmetric content grid for visual projects."
+    },
+    "article-layout": {
+      "name": "Article Layout",
+      "description": "Editorial body with supporting sidebar modules."
+    },
+    "product-detail": {
+      "name": "Product Detail",
+      "description": "Image gallery, purchase panel, and detail sections."
+    },
+    "pricing-grid": {
+      "name": "Pricing Grid",
+      "description": "Balanced cards with a featured center plan."
+    },
+    "admin-console": {
+      "name": "Admin Console",
+      "description": "Sidebar-heavy operations screen."
+    },
+    "media-gallery": {
+      "name": "Media Gallery",
+      "description": "Featured media item plus supporting thumbnails."
+    },
+    "kanban-snapshot": {
+      "name": "Kanban Snapshot",
+      "description": "Four-lane work board with summary row."
+    },
+    "landing-sections": {
+      "name": "Landing Sections",
+      "description": "Hero, feature blocks, proof, and conversion row."
+    }
   },
   "codeOutput": {
     "title": "Generated code",

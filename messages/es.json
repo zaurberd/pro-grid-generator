@@ -17,7 +17,62 @@
     "title": "Lienzo de cuadrícula",
     "instruction": "Haz clic en las celdas para agregar elementos",
     "emptyTitle": "Cuadrícula vacía",
-    "emptyMessage": "Haz clic en las celdas para agregar elementos"
+    "emptyMessage": "Haz clic en las celdas para agregar elementos",
+    "itemLabel": "Elemento {number}"
+  },
+  "presetGallery": {
+    "title": "Plantillas de cuadrícula",
+    "subtitle": "Empieza con un diseño listo para producción o abre un lienzo vacío.",
+    "manualTitle": "Crear manualmente",
+    "manualDescription": "Abre un lienzo vacío y elige allí el modo de edición.",
+    "createGrid": "Crear cuadrícula",
+    "usePreset": "Usar plantilla"
+  },
+  "editorMode": {
+    "simple": "Simple",
+    "responsive": "Responsivo"
+  },
+  "presets": {
+    "dashboard-overview": {
+      "name": "Resumen de panel",
+      "description": "Fila de métricas principales con dos paneles de contenido debajo."
+    },
+    "analytics-board": {
+      "name": "Panel de analítica",
+      "description": "Gráfico grande con tarjetas compactas de información."
+    },
+    "portfolio-masonry": {
+      "name": "Portafolio Masonry",
+      "description": "Cuadrícula asimétrica para proyectos visuales."
+    },
+    "article-layout": {
+      "name": "Diseño de artículo",
+      "description": "Cuerpo editorial con módulos laterales de apoyo."
+    },
+    "product-detail": {
+      "name": "Detalle de producto",
+      "description": "Galería de imágenes, panel de compra y secciones de detalle."
+    },
+    "pricing-grid": {
+      "name": "Cuadrícula de precios",
+      "description": "Tarjetas equilibradas con un plan central destacado."
+    },
+    "admin-console": {
+      "name": "Consola admin",
+      "description": "Pantalla operativa con navegación lateral dominante."
+    },
+    "media-gallery": {
+      "name": "Galería multimedia",
+      "description": "Elemento multimedia principal con miniaturas de apoyo."
+    },
+    "kanban-snapshot": {
+      "name": "Vista Kanban",
+      "description": "Tablero de cuatro carriles con fila de resumen."
+    },
+    "landing-sections": {
+      "name": "Secciones de landing",
+      "description": "Hero, bloques de características, prueba social y llamada a la acción."
+    }
   },
   "codeOutput": {
     "title": "Código generado",

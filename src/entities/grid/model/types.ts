@@ -26,6 +26,7 @@ export interface ResponsiveGridState {
 }
 
 export interface GridPreset {
+  id: string
   name: string
   description: string
   state: GridState

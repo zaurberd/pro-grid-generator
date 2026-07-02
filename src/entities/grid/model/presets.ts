@@ -2,6 +2,7 @@ import type { GridPreset } from './types'
 
 export const GRID_PRESETS: GridPreset[] = [
   {
+    id: 'dashboard-overview',
     name: 'Dashboard Overview',
     description: 'Hero metric row with two lower content panels.',
     state: {
@@ -15,6 +16,7 @@ export const GRID_PRESETS: GridPreset[] = [
     },
   },
   {
+    id: 'analytics-board',
     name: 'Analytics Board',
     description: 'Large chart with compact insight cards.',
     state: {
@@ -29,6 +31,7 @@ export const GRID_PRESETS: GridPreset[] = [
     },
   },
   {
+    id: 'portfolio-masonry',
     name: 'Portfolio Masonry',
     description: 'Asymmetric content grid for visual projects.',
     state: {
@@ -44,6 +47,7 @@ export const GRID_PRESETS: GridPreset[] = [
     },
   },
   {
+    id: 'article-layout',
     name: 'Article Layout',
     description: 'Editorial body with supporting sidebar modules.',
     state: {
@@ -58,6 +62,7 @@ export const GRID_PRESETS: GridPreset[] = [
     },
   },
   {
+    id: 'product-detail',
     name: 'Product Detail',
     description: 'Image gallery, purchase panel, and detail sections.',
     state: {
@@ -72,6 +77,7 @@ export const GRID_PRESETS: GridPreset[] = [
     },
   },
   {
+    id: 'pricing-grid',
     name: 'Pricing Grid',
     description: 'Balanced cards with a featured center plan.',
     state: {
@@ -87,6 +93,7 @@ export const GRID_PRESETS: GridPreset[] = [
     },
   },
   {
+    id: 'admin-console',
     name: 'Admin Console',
     description: 'Sidebar-heavy operations screen.',
     state: {
@@ -101,6 +108,7 @@ export const GRID_PRESETS: GridPreset[] = [
     },
   },
   {
+    id: 'media-gallery',
     name: 'Media Gallery',
     description: 'Featured media item plus supporting thumbnails.',
     state: {
@@ -115,6 +123,7 @@ export const GRID_PRESETS: GridPreset[] = [
     },
   },
   {
+    id: 'kanban-snapshot',
     name: 'Kanban Snapshot',
     description: 'Four-lane work board with summary row.',
     state: {
@@ -130,6 +139,7 @@ export const GRID_PRESETS: GridPreset[] = [
     },
   },
   {
+    id: 'landing-sections',
     name: 'Landing Sections',
     description: 'Hero, feature blocks, proof, and conversion row.',
     state: {
@@ -148,7 +158,7 @@ export const GRID_PRESETS: GridPreset[] = [
 ]
 
 export function getGridPresetSlug(preset: GridPreset): string {
-  return preset.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
+  return preset.id
 }
 
 export function findGridPreset(slug: string): GridPreset | undefined {
