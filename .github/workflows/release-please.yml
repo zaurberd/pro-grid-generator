@@ -21,7 +21,9 @@ jobs:
   release-please:
     runs-on: ubuntu-latest
     steps:
-      - uses: googleapis/release-please-action@v4
+      # v4 currently runs on deprecated Node 20; main declares Node 24.
+      # Switch back to a stable major tag when release-please publishes one for Node 24.
+      - uses: googleapis/release-please-action@main
         with:
           token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
           config-file: release-please-config.json
