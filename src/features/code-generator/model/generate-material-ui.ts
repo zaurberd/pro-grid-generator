@@ -1,60 +1,111 @@
 import type { GridState } from '@/entities/grid'
 import {
+  formatResponsiveObject,
+  getItemById,
+  getResponsiveItemIds,
+  getResponsiveLayoutEntries,
+  hasResponsiveEntries,
   sortGridItems,
-  hasVerticalItems,
   calculateGridItemEnds,
+  type ResponsiveGeneratorOptions,
 } from './utils'
 
-interface GeneratorOptions {
+interface GeneratorOptions extends ResponsiveGeneratorOptions {
   withStyledBorders?: boolean
+}
+
+function generateResponsiveMaterialUICode(
+  gridState: GridState,
+  options: GeneratorOptions
+): string {
+  const { withStyledBorders = true } = options
+  const entries = getResponsiveLayoutEntries(gridState, options)
+  const itemIds = getResponsiveItemIds(entries)
+  const containerColumns = formatResponsiveObject(
+    entries.map(({ breakpoint, state }) => [
+      breakpoint.id,
+      `repeat(${state.config.columns}, 1fr)`,
+    ])
+  )
+  const containerRows = formatResponsiveObject(
+    entries.map(({ breakpoint, state }) => [
+      breakpoint.id,
+      `repeat(${state.config.rows}, 1fr)`,
+    ])
+  )
+  const containerGap = formatResponsiveObject(
+    entries.map(({ breakpoint, state }) => [breakpoint.id, `${state.config.gap}px`])
+  )
+  const elevationAttr = withStyledBorders ? '' : '\n        elevation={0}'
+  const gridItems = itemIds
+    .map((itemId, index) => {
+      const values = entries
+        .map(({ breakpoint, state }) => {
+          const item = getItemById(state, itemId)
+          if (!item) return null
+
+          const { colEnd, rowEnd } = calculateGridItemEnds(item)
+          return {
+            breakpoint: breakpoint.id,
+            item,
+            colEnd,
+            rowEnd,
+          }
+        })
+        .filter((value): value is NonNullable<typeof value> => value !== null)
+
+      return `      <Card${elevationAttr}
+        sx={{
+          gridColumnStart: ${formatResponsiveObject(values.map(({ breakpoint, item }) => [breakpoint, item.colStart]))},
+          gridColumnEnd: ${formatResponsiveObject(values.map(({ breakpoint, colEnd }) => [breakpoint, colEnd]))},
+          gridRowStart: ${formatResponsiveObject(values.map(({ breakpoint, item }) => [breakpoint, item.rowStart]))},
+          gridRowEnd: ${formatResponsiveObject(values.map(({ breakpoint, rowEnd }) => [breakpoint, rowEnd]))},
+        }}
+      >
+        Item ${index + 1}
+      </Card>`
+    })
+    .join('\n')
+
+  return `// Quickstart: https://mui.com/material-ui/getting-started/installation/
+import { Box, Card } from '@mui/material'
+
+const MyGrid = () => {
+  return (
+    <Box
+      sx={{
+        display: 'grid',
+        gridTemplateColumns: ${containerColumns},
+        gridTemplateRows: ${containerRows},
+        gap: ${containerGap},
+      }}
+    >
+${gridItems || '      {/* Grid items code will appear here */}'}
+    </Box>
+  )
+}
+
+export default MyGrid;`
 }
 
 export function generateMaterialUICode(gridState: GridState, options: GeneratorOptions = {}): string {
   const { withStyledBorders = true } = options
   const { config, items } = gridState
+  const responsiveEntries = getResponsiveLayoutEntries(gridState, options)
+
+  if (hasResponsiveEntries(responsiveEntries)) {
+    return generateResponsiveMaterialUICode(gridState, options)
+  }
 
   const header = `// Quickstart: https://mui.com/material-ui/getting-started/installation/`
 
-  const hasVertical = hasVerticalItems(items)
-  const spacing = Math.round(config.gap / 8) || 2
-
-  if (!hasVertical && items.length > 0) {
-    const sortedItems = sortGridItems(items)
-    const columnRatio = 12 / config.columns
-
-    const gridItems = sortedItems
-      .map((item, index) => {
-        const itemNumber = index + 1
-        const size = Math.round(item.colSpan * columnRatio)
-        return `      <Grid size={${size}}>
-        Item ${itemNumber}
-      </Grid>`
-      })
-      .join('\n')
-
-    return `${header}
-import { Grid } from '@mui/material'
-
-const MyGrid = () => {
-  return (
-    <Grid container spacing={${spacing}}>
-${gridItems}
-    </Grid>
-  )
-}
-
-export default MyGrid;`
-  }
-
   if (items.length === 0) {
     return `${header}
-import { Grid } from '@mui/material'
+import { Box } from '@mui/material'
 
 const MyGrid = () => {
   return (
-    <Grid
-      container
-      spacing={${spacing}}
+    <Box
       sx={{
         display: 'grid',
         gridTemplateColumns: \`repeat(${config.columns}, 1fr)\`,
@@ -63,7 +114,7 @@ const MyGrid = () => {
       }}
     >
       {/* Grid items code will appear here */}
-    </Grid>
+    </Box>
   )
 }
 

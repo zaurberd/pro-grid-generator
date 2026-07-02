@@ -1,58 +1,116 @@
 import type { GridState } from '@/entities/grid'
 import {
+  getItemById,
+  getResponsiveItemIds,
+  getResponsiveLayoutEntries,
+  hasResponsiveEntries,
   sortGridItems,
-  hasVerticalItems,
   generateTailwindGridClasses,
   generateTailwindGapClass,
   generateTailwindGridColsClass,
   generateTailwindGridRowsClass,
   generateBorderStyle,
   calculateGridItemEnds,
+  type ResponsiveGeneratorOptions,
 } from './utils'
 
-interface GeneratorOptions {
+interface GeneratorOptions extends ResponsiveGeneratorOptions {
   withStyledBorders?: boolean
   withTailwind?: boolean
+}
+
+function generateResponsiveMantineCSSGridCode(
+  gridState: GridState,
+  options: GeneratorOptions
+): string {
+  const { withStyledBorders = true } = options
+  const entries = getResponsiveLayoutEntries(gridState, options)
+  const itemIds = getResponsiveItemIds(entries)
+  const baseEntry = entries[0]
+  const borderCSS = withStyledBorders ? 'border: 1px solid #4a5565;' : ''
+  const gridItems = itemIds
+    .map((_, index) => `      <Card className="grid-item-${index + 1}">
+        Item ${index + 1}
+      </Card>`)
+    .join('\n')
+  const baseItemStyles = itemIds
+    .map((itemId, index) => {
+      const item = getItemById(baseEntry.state, itemId)
+      if (!item) return ''
+
+      const { colEnd, rowEnd } = calculateGridItemEnds(item)
+      const borderRule = borderCSS ? `\n          ${borderCSS}` : ''
+      return `        .grid-item-${index + 1} {
+          grid-column: ${item.colStart} / ${colEnd};
+          grid-row: ${item.rowStart} / ${rowEnd};${borderRule}
+        }`
+    })
+    .filter(Boolean)
+    .join('\n')
+  const mediaQueries = entries
+    .slice(1)
+    .map(({ breakpoint, state }) => {
+      const itemStyles = itemIds
+        .map((itemId, index) => {
+          const item = getItemById(state, itemId)
+          if (!item) return ''
+
+          const { colEnd, rowEnd } = calculateGridItemEnds(item)
+          return `          .grid-item-${index + 1} {
+            grid-column: ${item.colStart} / ${colEnd};
+            grid-row: ${item.rowStart} / ${rowEnd};
+          }`
+        })
+        .filter(Boolean)
+        .join('\n')
+
+      return `        @media (min-width: ${breakpoint.minWidth}px) {
+          .grid-container {
+            grid-template-columns: repeat(${state.config.columns}, 1fr);
+            grid-template-rows: repeat(${state.config.rows}, 1fr);
+            gap: ${state.config.gap}px;
+          }
+${itemStyles}
+        }`
+    })
+    .join('\n')
+
+  return `// Quickstart: https://mantine.dev/getting-started/
+import { Card } from "@mantine/core";
+
+const MyGrid = () => {
+  return (
+    <>
+      <style>{\`
+        .grid-container {
+          display: grid;
+          grid-template-columns: repeat(${baseEntry.state.config.columns}, 1fr);
+          grid-template-rows: repeat(${baseEntry.state.config.rows}, 1fr);
+          gap: ${baseEntry.state.config.gap}px;
+        }
+${baseItemStyles}
+${mediaQueries}
+      \`}</style>
+      <div className="grid-container">
+${gridItems || '        {/* Grid items code will appear here */}'}
+      </div>
+    </>
+  );
+}
+
+export default MyGrid;`
 }
 
 export function generateMantineCode(gridState: GridState, options: GeneratorOptions = {}): string {
   const { withStyledBorders = true, withTailwind = false } = options
   const { config, items } = gridState
+  const responsiveEntries = getResponsiveLayoutEntries(gridState, options)
+
+  if (hasResponsiveEntries(responsiveEntries)) {
+    return generateResponsiveMantineCSSGridCode(gridState, options)
+  }
 
   const header = `// Quickstart: https://mantine.dev/getting-started/`
-
-  const hasVertical = hasVerticalItems(items)
-
-  if (!hasVertical && items.length > 0) {
-    const sortedItems = sortGridItems(items)
-    const columnRatio = 12 / config.columns
-    const borderStyle = generateBorderStyle(withStyledBorders)
-    const gridItems = sortedItems
-      .map((item, index) => {
-        const itemNumber = index + 1
-        const span = Math.round(item.colSpan * columnRatio)
-        const styleProps = borderStyle ? ` style={{ ${borderStyle} }}` : ''
-        return `      <Grid.Col span={${span}}${styleProps}>
-        Item ${itemNumber}
-      </Grid.Col>`
-      })
-      .join('\n')
-
-    const gap = config.gap % 4 === 0 ? config.gap / 4 : `\`${config.gap}px\``
-
-    return `${header}
-import { Grid } from "@mantine/core";
-
-const MyGrid = () => {
-  return (
-    <Grid gutter={${gap}}>
-${gridItems}
-    </Grid>
-  );
-}
-
-export default MyGrid;`
-  }
 
   if (items.length === 0) {
     const gapClass = generateTailwindGapClass(config.gap)

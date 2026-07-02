@@ -7,12 +7,26 @@ import {
   type GridState,
 } from '@/entities/grid'
 import { GridControls } from '@/features/grid-controls'
+import {
+  GridEditorModeSwitch,
+  type GridEditorMode,
+} from '@/features/grid-editor-mode'
+import { BreakpointSelector } from '@/features/responsive-breakpoints'
+import type {
+  GridBreakpoint,
+  GridBreakpointDefinition,
+} from '@/shared/types/code-generator'
 import { Card, CardContent } from '@/shared/ui'
 import { GridCanvas } from '@/widgets/grid-canvas'
 
 interface GridEditorWorkspaceProps {
   gridState: GridState
+  breakpoints: GridBreakpointDefinition[]
+  activeBreakpoint: GridBreakpoint
+  editorMode: GridEditorMode
   selectedItemId: string | null
+  onEditorModeChange: (mode: GridEditorMode) => void
+  onBreakpointChange: (breakpoint: GridBreakpoint) => void
   onConfigChange: (config: GridConfig) => void
   onItemClick: (itemId: string) => void
   onEmptyCellClick: (col: number, row: number) => void
@@ -23,7 +37,12 @@ interface GridEditorWorkspaceProps {
 
 function GridEditorWorkspace({
   gridState,
+  breakpoints,
+  activeBreakpoint,
+  editorMode,
   selectedItemId,
+  onEditorModeChange,
+  onBreakpointChange,
   onConfigChange,
   onItemClick,
   onEmptyCellClick,
@@ -47,6 +66,19 @@ function GridEditorWorkspace({
           </div>
 
           <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <GridEditorModeSwitch
+                mode={editorMode}
+                onModeChange={onEditorModeChange}
+              />
+              {editorMode === 'responsive' && (
+                <BreakpointSelector
+                  breakpoints={breakpoints}
+                  activeBreakpoint={activeBreakpoint}
+                  onBreakpointChange={onBreakpointChange}
+                />
+              )}
+            </div>
             <div className="flex justify-center rounded-lg w-full overflow-hidden">
               <GridCanvas
                 gridState={gridState}
