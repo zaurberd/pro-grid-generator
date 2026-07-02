@@ -513,7 +513,11 @@ function GridCanvas({
               )}
 
               <div className="text-center px-2 py-1 pointer-events-none">
-                <div className="font-semibold">Item {itemNumberMap.get(item.id) ?? 0}</div>
+                <div className="font-semibold">
+                  {t('gridCanvas.itemLabel', {
+                    number: itemNumberMap.get(item.id) ?? 0,
+                  })}
+                </div>
                 <div className="text-muted-foreground text-[10px] mt-0.5">
                   {item.colSpan}×{item.rowSpan}
                 </div>

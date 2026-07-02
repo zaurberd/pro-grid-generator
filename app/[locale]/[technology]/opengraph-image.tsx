@@ -1,5 +1,5 @@
 import { ImageResponse } from 'next/og'
-import { isValidLocale, isValidTechnology } from '@/shared/types/routing'
+import { isValidLocale, isValidTechnology, type Locale } from '@/shared/types/routing'
 
 function getTechDisplayName(technology: string): string {
   const names: Record<string, string> = {
@@ -15,6 +15,21 @@ function getTechDisplayName(technology: string): string {
 export const alt = 'Pro Grid Generator - Visual grid editor for multiple frameworks'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
+
+const ogText: Record<Locale, { eyebrow: string; tagline: string }> = {
+  en: {
+    eyebrow: 'Grid Generator',
+    tagline: 'Visual editor · Responsive layouts · Copy-ready code',
+  },
+  es: {
+    eyebrow: 'Generador de cuadrículas',
+    tagline: 'Editor visual · Diseños responsivos · Código listo para copiar',
+  },
+  ru: {
+    eyebrow: 'Генератор сеток',
+    tagline: 'Визуальный редактор · Адаптивные макеты · Готовый код',
+  },
+}
 
 export default async function Image({
   params,
@@ -46,6 +61,7 @@ export default async function Image({
   }
 
   const displayName = getTechDisplayName(technology)
+  const text = ogText[locale]
 
   return new ImageResponse(
     (
@@ -93,7 +109,7 @@ export default async function Image({
               letterSpacing: 4,
             }}
           >
-            Grid Generator
+            {text.eyebrow}
           </div>
           <div
             style={{
@@ -111,7 +127,7 @@ export default async function Image({
               marginTop: 16,
             }}
           >
-            Visual editor · Responsive layouts · Copy-ready code
+            {text.tagline}
           </div>
         </div>
       </div>

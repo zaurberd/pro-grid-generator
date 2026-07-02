@@ -7,6 +7,7 @@ import { AppFooter } from '@/widgets/app-footer'
 import { GridEditorHeader } from '@/views/grid-editor/ui/grid-editor-header'
 import { DEFAULT_TECHNOLOGY, type Locale } from '@/shared/types/routing'
 import { Button, Card, CardContent } from '@/shared/ui'
+import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 
 interface PresetGalleryPageProps {
@@ -34,11 +35,11 @@ function PresetPreview({ preset }: { preset: GridPreset }) {
 
   return (
     <div
-      className="grid h-56 rounded-md border border-border bg-background p-3 sm:h-64"
+      className="grid h-40 min-w-0 overflow-hidden rounded-md border border-border bg-background p-2 sm:h-56 sm:p-3 lg:h-64"
       style={{
         gridTemplateColumns: `repeat(${config.columns}, minmax(0, 1fr))`,
         gridTemplateRows: `repeat(${config.rows}, minmax(0, 1fr))`,
-        gap: `${Math.max(4, Math.min(config.gap, 10))}px`,
+        gap: `${Math.max(3, Math.min(config.gap, 8))}px`,
       }}
       aria-hidden
     >
@@ -58,55 +59,59 @@ function PresetPreview({ preset }: { preset: GridPreset }) {
 }
 
 function PresetGalleryPage({ locale }: PresetGalleryPageProps) {
+  const t = useTranslations()
+
   return (
     <div className="min-h-screen bg-background">
       <GridEditorHeader />
 
-      <main className="container mx-auto px-4 py-6 sm:px-6 sm:py-8">
-        <div className="flex flex-col gap-8">
+      <main className="container mx-auto px-4 py-5 sm:px-6 sm:py-8">
+        <div className="flex flex-col gap-6 sm:gap-8">
           <section className="flex flex-col gap-4">
             <div className="max-w-3xl">
               <h1 className="text-3xl font-semibold tracking-normal text-foreground sm:text-4xl">
-                Grid presets
+                {t('presetGallery.title')}
               </h1>
               <p className="mt-3 text-sm leading-6 text-muted-foreground sm:text-base">
-                Start from a production-style layout or open a blank canvas.
+                {t('presetGallery.subtitle')}
               </p>
             </div>
 
-            <Card className="rounded-lg py-5">
-              <CardContent className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                <div>
+            <Card className="min-w-0 overflow-hidden rounded-lg py-4 sm:py-5">
+              <CardContent className="flex min-w-0 flex-col gap-4 px-4 sm:flex-row sm:items-center sm:justify-between sm:px-5 lg:px-6">
+                <div className="min-w-0">
                   <h2 className="text-base font-semibold text-foreground">
-                    Create manually
+                    {t('presetGallery.manualTitle')}
                   </h2>
                   <p className="mt-1 text-sm text-muted-foreground">
-                    Open a blank canvas and choose the editing mode there.
+                    {t('presetGallery.manualDescription')}
                   </p>
                 </div>
-                <Button asChild>
-                  <Link href={getEditorHref(locale)}>Create grid</Link>
+                <Button asChild className="w-full sm:w-auto">
+                  <Link href={getEditorHref(locale)}>
+                    {t('presetGallery.createGrid')}
+                  </Link>
                 </Button>
               </CardContent>
             </Card>
           </section>
 
-          <section className="grid gap-5 lg:grid-cols-2">
+          <section className="grid min-w-0 gap-4 sm:gap-5 lg:grid-cols-2">
             {GRID_PRESETS.map((preset) => (
-              <Card key={preset.name} className="rounded-lg py-5">
-                <CardContent className="flex h-full flex-col gap-4">
+              <Card key={preset.name} className="min-w-0 overflow-hidden rounded-lg py-4 sm:py-5">
+                <CardContent className="flex h-full min-w-0 flex-col gap-4 px-4 sm:px-5 lg:px-6">
                   <PresetPreview preset={preset} />
-                  <div className="flex flex-1 flex-col gap-2">
+                  <div className="flex min-w-0 flex-1 flex-col gap-2">
                     <h2 className="text-base font-semibold text-foreground">
-                      {preset.name}
+                      {t(`presets.${preset.id}.name`)}
                     </h2>
                     <p className="text-sm leading-5 text-muted-foreground">
-                      {preset.description}
+                      {t(`presets.${preset.id}.description`)}
                     </p>
                   </div>
-                  <Button asChild size="sm">
+                  <Button asChild size="sm" className="w-full">
                     <Link href={getEditorHref(locale, preset)}>
-                      Use preset
+                      {t('presetGallery.usePreset')}
                     </Link>
                   </Button>
                 </CardContent>

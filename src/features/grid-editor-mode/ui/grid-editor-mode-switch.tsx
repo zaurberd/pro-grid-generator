@@ -1,6 +1,7 @@
 'use client'
 
 import { Button } from '@/shared/ui'
+import { useTranslations } from 'next-intl'
 import type { GridEditorMode } from '../model/types'
 
 interface GridEditorModeSwitchProps {
@@ -14,6 +15,8 @@ function GridEditorModeSwitch({
   onModeChange,
   className,
 }: GridEditorModeSwitchProps) {
+  const t = useTranslations()
+
   return (
     <div className={className}>
       <div className="inline-flex rounded-md border border-border bg-background p-1">
@@ -24,7 +27,7 @@ function GridEditorModeSwitch({
           className="w-28 border border-transparent px-0"
           onClick={() => onModeChange('simple')}
         >
-          Simple
+          {t('editorMode.simple')}
         </Button>
         <Button
           type="button"
@@ -33,7 +36,7 @@ function GridEditorModeSwitch({
           className="w-28 border border-transparent px-0"
           onClick={() => onModeChange('responsive')}
         >
-          Responsive
+          {t('editorMode.responsive')}
         </Button>
       </div>
     </div>
