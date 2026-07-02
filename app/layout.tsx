@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { headers } from 'next/headers'
+import { AnalyticsProvider } from '@/shared/providers/analytics-provider'
 import { ThemeProvider } from '@/shared/providers/theme-provider'
 import { isValidLocale } from '@/shared/types/routing'
 import './globals.css'
@@ -32,7 +33,7 @@ export default async function RootLayout({
 }) {
   const headersList = await headers()
   const localeHeader = headersList.get('x-next-intl-locale')
-  const lang = isValidLocale(localeHeader) ? localeHeader : 'en'
+  const lang = localeHeader && isValidLocale(localeHeader) ? localeHeader : 'en'
 
   return (
     <html lang={lang} suppressHydrationWarning>
@@ -58,7 +59,9 @@ export default async function RootLayout({
             `,
           }}
         />
-        <ThemeProvider>{children}</ThemeProvider>
+        <AnalyticsProvider>
+          <ThemeProvider>{children}</ThemeProvider>
+        </AnalyticsProvider>
       </body>
     </html>
   )

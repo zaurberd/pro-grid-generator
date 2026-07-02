@@ -1,6 +1,5 @@
-import { redirect } from 'next/navigation'
-import { DEFAULT_TECHNOLOGY } from '@/shared/types/routing'
-import { isValidLocale } from '@/shared/types/routing'
+import { PresetGalleryPage } from '@/views/preset-gallery'
+import { isValidLocale, type Locale } from '@/shared/types/routing'
 import { notFound } from 'next/navigation'
 
 interface LocalePageProps {
@@ -14,5 +13,5 @@ export default async function LocalePage({ params }: LocalePageProps) {
     notFound()
   }
 
-  redirect(`/${locale}/${DEFAULT_TECHNOLOGY}`)
+  return <PresetGalleryPage locale={locale as Locale} />
 }

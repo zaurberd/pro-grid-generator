@@ -1,3 +1,5 @@
+import type { GridBreakpoint } from '@/shared/types/code-generator'
+
 export interface GridConfig {
   columns: number
   rows: number
@@ -17,9 +19,14 @@ export interface GridState {
   items: GridItem[]
 }
 
+export type ResponsiveGridLayouts = Partial<Record<GridBreakpoint, GridState>>
+
+export interface ResponsiveGridState {
+  layouts: ResponsiveGridLayouts
+}
+
 export interface GridPreset {
   name: string
   description: string
   state: GridState
 }
-

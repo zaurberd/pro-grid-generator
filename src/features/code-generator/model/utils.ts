@@ -1,4 +1,22 @@
-import type { GridItem } from '@/entities/grid'
+import type {
+  GridItem,
+  GridState,
+  ResponsiveGridLayouts,
+} from '@/entities/grid'
+import type {
+  GridBreakpoint,
+  GridBreakpointDefinition,
+} from '@/shared/types/code-generator'
+
+export interface ResponsiveGeneratorOptions {
+  responsiveLayouts?: ResponsiveGridLayouts
+  breakpoints?: GridBreakpointDefinition[]
+}
+
+export interface ResponsiveLayoutEntry {
+  breakpoint: GridBreakpointDefinition
+  state: GridState
+}
 
 export function sortGridItems(items: GridItem[]): GridItem[] {
   return [...items].sort((a, b) => {
@@ -54,4 +72,64 @@ export function calculateGridItemEnds(item: GridItem): {
     colEnd: item.colStart + item.colSpan,
     rowEnd: item.rowStart + item.rowSpan,
   }
+}
+
+export function getResponsiveLayoutEntries(
+  fallbackGridState: GridState,
+  options: ResponsiveGeneratorOptions
+): ResponsiveLayoutEntry[] {
+  if (!options.responsiveLayouts || !options.breakpoints?.length) {
+    return [
+      {
+        breakpoint: { id: 'xs', label: 'XS', minWidth: 0 },
+        state: fallbackGridState,
+      },
+    ]
+  }
+
+  return options.breakpoints.map((breakpoint) => ({
+    breakpoint,
+    state: options.responsiveLayouts?.[breakpoint.id] ?? fallbackGridState,
+  }))
+}
+
+export function hasResponsiveEntries(entries: ResponsiveLayoutEntry[]): boolean {
+  return entries.length > 1
+}
+
+export function getResponsiveItemIds(
+  entries: ResponsiveLayoutEntry[]
+): string[] {
+  const ids = new Set<string>()
+
+  entries.forEach(({ state }) => {
+    sortGridItems(state.items).forEach((item) => ids.add(item.id))
+  })
+
+  return Array.from(ids)
+}
+
+export function getItemById(
+  state: GridState,
+  itemId: string
+): GridItem | undefined {
+  return state.items.find((item) => item.id === itemId)
+}
+
+export function formatResponsiveObject(
+  entries: Array<[GridBreakpoint, number | string]>
+): string {
+  return `{ ${entries
+    .map(([breakpoint, value]) => {
+      const formattedValue = typeof value === 'number' ? value : `'${value}'`
+      const key = /^[A-Za-z_$][\w$]*$/.test(breakpoint)
+        ? breakpoint
+        : `'${breakpoint}'`
+      return `${key}: ${formattedValue}`
+    })
+    .join(', ')} }`
+}
+
+export function getCssBreakpointSelector(breakpoint: GridBreakpoint): string {
+  return breakpoint === '2xl' ? '2xl' : breakpoint
 }

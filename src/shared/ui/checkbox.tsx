@@ -6,7 +6,8 @@ interface CheckboxProps extends React.ComponentProps<"input"> {
 }
 
 function Checkbox({ className, label, id, ...props }: CheckboxProps) {
-  const checkboxId = id || `checkbox-${Math.random().toString(36).substring(2, 11)}`
+  const generatedId = React.useId()
+  const checkboxId = id || generatedId
 
   return (
     <label

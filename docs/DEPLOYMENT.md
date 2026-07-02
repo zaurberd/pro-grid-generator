@@ -28,6 +28,7 @@ This document describes how the app is deployed to a VPS with Docker, GitHub Act
 | **VPS_SSH_KEY** | **Private** SSH key content (starts with `-----BEGIN ... KEY-----`). The matching **public** key must be in the VPS user's `~/.ssh/authorized_keys`. |
 | **GHCR_TOKEN** | Personal Access Token with **read:packages** so the VPS can `docker pull` the image from GHCR. Optional if the GHCR package is public. |
 | **RELEASE_PLEASE_TOKEN** | Personal Access Token with **repo** scope so Release Please can create/update the Release PR. |
+| **NEXT_PUBLIC_AMPLITUDE_API_KEY** | Amplitude API key baked into the Next.js client bundle during Docker build. Leave unset to disable analytics. |
 
 To use one token for both GHCR and Release Please: create a classic PAT with **repo** and **read:packages**, then add it as both **GHCR_TOKEN** and **RELEASE_PLEASE_TOKEN**.
 
@@ -98,7 +99,7 @@ exit
 2. **Open a PR** into `trunk` and merge it.
 3. **Release Please** runs on push to `trunk` and opens or updates a **Release PR** (updates version in `package.json`, CHANGELOG, etc.).
 4. **Merge the Release PR** when you want to cut a release. Release Please creates the tag and GitHub Release.
-5. **Deploy to VPS** runs automatically on **release published**: it builds the image from the release tag, pushes to GHCR, SSHs to the VPS, pulls the image, and runs the container.
+5. **Deploy to VPS** runs automatically on **release published**: it builds the image from the release tag, passes `NEXT_PUBLIC_AMPLITUDE_API_KEY` into `next build`, pushes to GHCR, SSHs to the VPS, pulls the image, and runs the container.
 
 Manual deploy: **Actions → Deploy to VPS → Run workflow**.
 

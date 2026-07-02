@@ -130,6 +130,13 @@ Each technology page has optimized SEO metadata including:
 
 Metadata is generated in `src/shared/config/seo.ts` and configured in `app/[locale]/[technology]/layout.tsx`.
 
+## Analytics
+
+Amplitude page-view tracking is enabled when `NEXT_PUBLIC_AMPLITUDE_API_KEY` is set.
+The app captures `utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, and `utm_term`, stores first-touch and latest-touch attribution in `localStorage`, and sends it with each page view.
+
+Ready-to-use launch links are in **[docs/UTM_LINKS.csv](docs/UTM_LINKS.csv)**.
+
 ## shadcn/ui Components
 
 This project uses shadcn/ui components. To add new components:

@@ -2,6 +2,8 @@ export type {
   GridConfig,
   GridItem,
   GridState,
+  ResponsiveGridLayouts,
+  ResponsiveGridState,
   GridPreset,
 } from './model/types'
 
@@ -15,5 +17,10 @@ export {
   clampGridItem,
 } from './model/utils'
 
-export { GridActions } from './ui/grid-actions'
+export {
+  GRID_PRESETS,
+  findGridPreset,
+  getGridPresetSlug,
+} from './model/presets'
 
+export { GridActions } from './ui/grid-actions'

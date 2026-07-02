@@ -1,0 +1,20 @@
+Канал,utm_source,utm_medium,utm_campaign,utm_content,Когда использовать,Готовая ссылка
+Reddit пост,reddit,community,launch_1,post_main,Органический пост,https://pro-grid-generator.online/?utm_source=reddit&utm_medium=community&utm_campaign=launch_1&utm_content=post_main
+Reddit комментарий,reddit,community,launch_1,comment_reply,Ответы в тредах,https://pro-grid-generator.online/?utm_source=reddit&utm_medium=community&utm_campaign=launch_1&utm_content=comment_reply
+Reddit DM,reddit,community,launch_1,dm_link,Личная переписка,https://pro-grid-generator.online/?utm_source=reddit&utm_medium=community&utm_campaign=launch_1&utm_content=dm_link
+TikTok bio,tiktok,social,launch_1,bio_link,Ссылка в профиле,https://pro-grid-generator.online/?utm_source=tiktok&utm_medium=social&utm_campaign=launch_1&utm_content=bio_link
+TikTok видео,tiktok,social,launch_1,video_desc,В описании видео,https://pro-grid-generator.online/?utm_source=tiktok&utm_medium=social&utm_campaign=launch_1&utm_content=video_desc
+TikTok комментарии,tiktok,social,launch_1,comment_link,В комментариях видео,https://pro-grid-generator.online/?utm_source=tiktok&utm_medium=social&utm_campaign=launch_1&utm_content=comment_link
+Instagram bio,instagram,social,launch_1,bio_link,Ссылка в профиле,https://pro-grid-generator.online/?utm_source=instagram&utm_medium=social&utm_campaign=launch_1&utm_content=bio_link
+Instagram stories,instagram,social,launch_1,story_link,Сторис со свайпом,https://pro-grid-generator.online/?utm_source=instagram&utm_medium=social&utm_campaign=launch_1&utm_content=story_link
+Instagram пост,instagram,social,launch_1,post_main,Пост / Reels,https://pro-grid-generator.online/?utm_source=instagram&utm_medium=social&utm_campaign=launch_1&utm_content=post_main
+YouTube description,youtube,social,launch_1,desc_link,В описании видео,https://pro-grid-generator.online/?utm_source=youtube&utm_medium=social&utm_campaign=launch_1&utm_content=desc_link
+YouTube комментарий,youtube,social,launch_1,comment_link,Закреплённый комментарий,https://pro-grid-generator.online/?utm_source=youtube&utm_medium=social&utm_campaign=launch_1&utm_content=comment_link
+Twitter/X пост,twitter,social,launch_1,post_main,Твит,https://pro-grid-generator.online/?utm_source=twitter&utm_medium=social&utm_campaign=launch_1&utm_content=post_main
+Twitter/X ответ,twitter,social,launch_1,comment_reply,Ответы в тредах,https://pro-grid-generator.online/?utm_source=twitter&utm_medium=social&utm_campaign=launch_1&utm_content=comment_reply
+Twitter/X DM,twitter,social,launch_1,dm_link,Личная переписка,https://pro-grid-generator.online/?utm_source=twitter&utm_medium=social&utm_campaign=launch_1&utm_content=dm_link
+Telegram канал,telegram,social,launch_1,channel_post,Пост в канале,https://pro-grid-generator.online/?utm_source=telegram&utm_medium=social&utm_campaign=launch_1&utm_content=channel_post
+Telegram бот,telegram,social,launch_1,bot_link,Ссылка из бота,https://pro-grid-generator.online/?utm_source=telegram&utm_medium=social&utm_campaign=launch_1&utm_content=bot_link
+Product Hunt,producthunt,referral,launch_1,launch_day,День запуска,https://pro-grid-generator.online/?utm_source=producthunt&utm_medium=referral&utm_campaign=launch_1&utm_content=launch_day
+Hacker News,hackernews,community,launch_1,show_hn,Show HN,https://pro-grid-generator.online/?utm_source=hackernews&utm_medium=community&utm_campaign=launch_1&utm_content=show_hn
+Email рассылка,newsletter,email,launch_1,footer_link,Подвал письма,https://pro-grid-generator.online/?utm_source=newsletter&utm_medium=email&utm_campaign=launch_1&utm_content=footer_link
