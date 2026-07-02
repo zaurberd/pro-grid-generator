@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/zaurberd/pro-grid-generator/compare/pro-grid-generator-v1.1.1...pro-grid-generator-v1.2.0) (2026-07-02)
+
+
+### Features
+
+* add grid gallery and responsive mode ([#8](https://github.com/zaurberd/pro-grid-generator/issues/8)) ([8577c40](https://github.com/zaurberd/pro-grid-generator/commit/8577c40840e38a752efb9ca4712eed9b45fa6614))
+
 ## [1.1.1](https://github.com/zaurberd/pro-grid-generator/compare/pro-grid-generator-v1.1.0...pro-grid-generator-v1.1.1) (2026-03-11)
 
 
